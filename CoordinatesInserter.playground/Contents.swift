@@ -64,6 +64,8 @@ func getCoordinatesList(_ startWpt: CLLocationCoordinate2D, _ finishWpt: CLLocat
     return coordinates
 }
 
+print("test")
+
 //__________________________________________________________________________________________
 
 //class CoordinateGeneratorTests: XCTestCase {
