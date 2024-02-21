@@ -8,9 +8,15 @@ import PlaygroundSupport
 // This is for In-playground XCTestCases only.
 PlaygroundPage.current.needsIndefiniteExecution = true
 
-let startWpt = CLLocationCoordinate2D(latitude: -10.0, longitude: 0.0)
-let finishWpt = CLLocationCoordinate2D(latitude: -20.0, longitude: 10.0)
+var results = [CLLocationCoordinate2D]()
+var waypoints = [CLLocationCoordinate2D]()
 let step = CLLocationCoordinate2D(latitude: 1.0, longitude: 1.0)
+
+waypoints = [
+    CLLocationCoordinate2D(latitude: -10.0, longitude: 0.0),
+    CLLocationCoordinate2D(latitude: -15.0, longitude: 10.0),
+    CLLocationCoordinate2D(latitude: -20.0, longitude: 15.0)
+]
 
 extension CLLocationCoordinate2D {
     public static func == (leftHandEquitable: CLLocationCoordinate2D, rightHandEquitable: CLLocationCoordinate2D) -> Bool {
@@ -25,9 +31,6 @@ extension CLLocationCoordinate2D {
         return longitude < 0
     }
 }
-
-var coordinates = Array<Any>()
-coordinates = getCoordinatesList(startWpt, finishWpt, step)
 
 func getCoordinatesList(_ startWpt: CLLocationCoordinate2D, _ finishWpt: CLLocationCoordinate2D, _ step: CLLocationCoordinate2D) -> [CLLocationCoordinate2D] {
     var coordinates = [CLLocationCoordinate2D]()
@@ -60,12 +63,14 @@ func getCoordinatesList(_ startWpt: CLLocationCoordinate2D, _ finishWpt: CLLocat
         }
     }
     coordinates.append(finishWpt)
-    print(coordinates)
     return coordinates
 }
 
-print("test")
+for index in 0..<(waypoints.count - 1) {
+    results.append(contentsOf: getCoordinatesList(waypoints[index], waypoints[index + 1], step))
+}
 
+print(results)
 //__________________________________________________________________________________________
 
 //class CoordinateGeneratorTests: XCTestCase {
@@ -87,4 +92,3 @@ print("test")
 //
 //let testSuite = CoordinateGeneratorTests.defaultTestSuite
 //testSuite.run()
-
